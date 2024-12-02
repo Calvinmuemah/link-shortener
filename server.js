@@ -4,9 +4,12 @@ const shortUrl = require ('./models/shortUrl')
 const app = express();
 // connecting to db
 // mongoose.connect('mongoose.mongodb://127.0.0.1:27017/urlShortener', {
-mongoose.connect("mongodb://127.0.0.1:27017/shortUrl",{
-    useNewUrlParser:true, useUnifiedTopology: true 
-})
+// mongoose.connect("mongodb://127.0.0.1:27017/shortUrl",{
+//     useNewUrlParser:true, useUnifiedTopology: true 
+// })
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true, useUnifiedTopology: true 
+});
 app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({extended: false}))
@@ -32,8 +35,9 @@ app.get('/:shortUrl', async (req, res)=>{
     res.redirect(shortUrls.long)
 })
 
-const port = 3000;
+module.exports = app;
+// const port = 3000;
 
-app.listen(port, function (){
-    console.log(`server is running at ${port}`);
-});
+// app.listen(port, function (){
+//     console.log(`server is running at ${port}`);
+// });
