@@ -22,9 +22,9 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/home', async (req, res) => {
-    const shortUrls = await shortUrl.find()
-    console.log(`data: ${shortUrls}`)
-    res.render('index', {shortUrls:shortUrls});
+    //const shortUrls = await shortUrl.find()
+    //console.log(`data: ${shortUrls}`)
+    res.render('index', {shortUrls:[]});
 })
 
 // to create the end shortUrl endpoints
