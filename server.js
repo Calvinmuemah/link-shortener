@@ -21,8 +21,14 @@ app.get('/', async (req, res) => {
     return res.status(200).json({"status": "app running successfully"})
 })
 
-app.get('/home', async (req, res) => {
-    const shortUrls = await shortUrl.find()
+// app.get('/home', async (req, res) => {
+//     const shortUrl = await shortUrl.find()
+//     //console.log(`data: ${shortUrls}`)
+//     res.render('index', {shortUrl:[]});
+// })
+
+app.get('/home', (req, res) => {
+    const shortUrl =  shortUrl.find()
     //console.log(`data: ${shortUrls}`)
     res.render('index', {shortUrl:[]});
 })
@@ -34,11 +40,11 @@ app.post('/shortUrls', async(req, res) =>{
 })
 
 app.get('/:shortUrl', async (req, res)=>{
-    const shortUrl = await shortUrl.findOne({ short: req.params.shortUrl})
-    if (shortUrl == null) return res.sendStatus(404)
+    const shortUrls = await shortUrl.findOne({ short: req.params.shortUrl})
+    if (shortUrls == null) return res.sendStatus(404)
 
-    shortUrl.clicks++
-    shortUrl.save()
+    shortUrls.clicks++
+    shortUrls.save()
     
     res.redirect(shortUrl.long)
 })
