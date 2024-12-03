@@ -22,25 +22,25 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/home', async (req, res) => {
-    const shortUrl = await shortUrl.find()
+    const shortUrls = await shortUrl.find()
     //console.log(`data: ${shortUrls}`)
     res.render('index', {shortUrl:[]});
 })
 
 // to create the end shortUrl endpoints
-app.post('/shortUrl', async(req, res) =>{
-    await shortUrl.create({long: req.body.longUrl})
+app.post('/shortUrls', async(req, res) =>{
+    await shortUrls.create({long: req.body.longUrl})
     res.redirect('/')
 })
 
 app.get('/:shortUrl', async (req, res)=>{
-    const shortUrls = await shortUrl.findOne({ short: req.params.shortUrl})
-    if (shortUrls == null) return res.sendStatus(404)
+    const shortUrl = await shortUrl.findOne({ short: req.params.shortUrl})
+    if (shortUrl == null) return res.sendStatus(404)
 
-    shortUrls.clicks++
-    shortUrls.save()
+    shortUrl.clicks++
+    shortUrl.save()
     
-    res.redirect(shortUrls.long)
+    res.redirect(shortUrl.long)
 })
 
 const port = 3000;
