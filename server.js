@@ -18,7 +18,12 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
 
 app.get('/', async (req, res) => {
+    return res.status(200).json({"status": "app running successfully"})
+})
+
+app.get('/home', async (req, res) => {
     const shortUrls = await shortUrl.find()
+    console.log(`data: ${shortUrls}`)
     res.render('index', {shortUrls:shortUrls});
 })
 
