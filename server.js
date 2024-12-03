@@ -2,9 +2,11 @@ const express = require ('express')
 const mongoose = require ('mongoose')
 const shortUrl = require ('./models/shortUrl')
 const app = express();
-// connecting to db
-// mongoose.connect('mongoose.mongodb://127.0.0.1:27017/urlShortener', {
-mongoose.connect("mongodb://127.0.0.1:27017", {dbName: "shortUrl"})
+const {config} = require("dotenv")
+config()
+
+
+mongoose.connect(process.env.MONGODB_URL, {dbName: "shortUrl"})
 .then(() => {
     console.log("connected to mongodb")
 })
